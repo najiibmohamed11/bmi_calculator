@@ -50,202 +50,204 @@ class _Input_fileState extends State<Input_file> {
 //     var malecolor = inactive;
 // var femailcolor = inactive;//if i put this variabls inside my class they would not work unles move to the up
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("BMI CALCULATOR"),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Row(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Text("BMI CALCULATOR"),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  child: RiusableWidget(
+                    onpressed: () {
+                      setState(
+                        () {
+                          malecolor = malecolor == inactive ? active : inactive;
+                          femailcolor = inactive;
+                        },
+                      );
+                    },
+                    Color(malecolor),
+                    costum: Gander(FontAwesomeIcons.mars, "MALE"),
+                  ),
+                ),
+                Expanded(
+                  child: RiusableWidget(
+                    onpressed: () {
+                      setState(
+                        () {
+                          femailcolor =
+                              femailcolor == inactive ? active : inactive;
+                          malecolor = inactive;
+                        },
+                      );
+                    },
+                    Color(femailcolor),
+                    costum: Gander(FontAwesomeIcons.mars, 'FEMAIL'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: RiusableWidget(
+              Color(riusableWidgetColor),
+              costum: Column(
                 children: [
-                  Expanded(
-                    child: RiusableWidget(
-                      onpressed: () {
-                        setState(
-                          () {
-                            malecolor =
-                                malecolor == inactive ? active : inactive;
-                            femailcolor = inactive;
-                          },
-                        );
-                      },
-                      Color(malecolor),
-                      costum: Gander(FontAwesomeIcons.mars, "MALE"),
-                    ),
+                  Text(
+                    "Heigh",
+                    style: labeltextstyl,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(height.toString(), style: knumbertextstyle),
+                      Text("cm")
+                    ],
                   ),
                   Expanded(
-                    child: RiusableWidget(
-                      onpressed: () {
-                        setState(
-                          () {
-                            femailcolor =
-                                femailcolor == inactive ? active : inactive;
-                            malecolor = inactive;
-                          },
-                        );
-                      },
-                      Color(femailcolor),
-                      costum: Gander(FontAwesomeIcons.mars, 'FEMAIL'),
+                    child: SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        thumbColor: Color(0xffE51048),
+                        activeTrackColor: Colors.white,
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      ),
+                      child: Slider(
+                        value: height.toDouble(),
+                        max: 220.0,
+                        min: 120.0,
+                        inactiveColor: Color(0xff7A7984),
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        },
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
-            Expanded(
-              child: RiusableWidget(
-                Color(riusableWidgetColor),
-                costum: Column(
-                  children: [
-                    Text(
-                      "Heigh",
-                      style: labeltextstyl,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: RiusableWidget(
+                    Color(riusableWidgetColor),
+                    costum: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(height.toString(), style: knumbertextstyle),
-                        Text("cm")
+                        Text(
+                          "weight",
+                          style: labeltextstyl,
+                        ),
+                        Text(
+                          weighttracker.toString(),
+                          style: knumbertextstyle,
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child:
+                                      roundedbuton(FontAwesomeIcons.minus, () {
+                                setState(() {
+                                  weighttracker--;
+                                });
+                              })),
+                              Expanded(
+                                  child:
+                                      roundedbuton(FontAwesomeIcons.plus, () {
+                                setState(() {
+                                  weighttracker++;
+                                });
+                              }))
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                    Expanded(
-                      child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          thumbColor: Color(0xffE51048),
-                          activeTrackColor: Colors.white,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                        ),
-                        child: Slider(
-                          value: height.toDouble(),
-                          max: 220.0,
-                          min: 120.0,
-                          inactiveColor: Color(0xff7A7984),
-                          onChanged: (double newValue) {
-                            setState(() {
-                              height = newValue.round();
-                            });
-                          },
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: RiusableWidget(
-                      Color(riusableWidgetColor),
-                      costum: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "weight",
-                            style: labeltextstyl,
+                Expanded(
+                  child: RiusableWidget(
+                    Color(riusableWidgetColor),
+                    costum: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "age",
+                          style: labeltextstyl,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: knumbertextstyle,
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child:
+                                      roundedbuton(FontAwesomeIcons.minus, () {
+                                setState(() {
+                                  age--;
+                                });
+                              })),
+                              Expanded(
+                                  child:
+                                      roundedbuton(FontAwesomeIcons.plus, () {
+                                setState(() {
+                                  age++;
+                                });
+                              }))
+                            ],
                           ),
-                          Text(
-                            weighttracker.toString(),
-                            style: knumbertextstyle,
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: roundedbuton(FontAwesomeIcons.minus,
-                                        () {
-                                  setState(() {
-                                    weighttracker--;
-                                  });
-                                })),
-                                Expanded(
-                                    child:
-                                        roundedbuton(FontAwesomeIcons.plus, () {
-                                  setState(() {
-                                    weighttracker++;
-                                  });
-                                }))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: RiusableWidget(
-                      Color(riusableWidgetColor),
-                      costum: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "age",
-                            style: labeltextstyl,
-                          ),
-                          Text(
-                            age.toString(),
-                            style: knumbertextstyle,
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: roundedbuton(FontAwesomeIcons.minus,
-                                        () {
-                                  setState(() {
-                                    age--;
-                                  });
-                                })),
-                                Expanded(
-                                    child:
-                                        roundedbuton(FontAwesomeIcons.plus, () {
-                                  setState(() {
-                                    age++;
-                                  });
-                                }))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            InkWell(
-              onTap: () {
-                calculations calculateobj =
-                    new calculations(height, weighttracker);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return Resualt(calculateobj.getbmi(),calculateobj.textweight(),calculateobj.longtext());
-                  }),
-                );
-              },
-              child: Container(
-                margin: EdgeInsets.only(top: 10.0),
-                width: double.infinity,
-                color: Color(bottomContainerColor),
-                height: bottomContainerhight,
-                child: Center(
-                    child: Text(
-                  "CALCULATE",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
-                )),
-              ),
-            )
-          ],
-        ));
+          ),
+          InkWell(
+            onTap: () {
+              calculations calculateobj =
+                  new calculations(height, weighttracker);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return Resualt(calculateobj.getbmi(),
+                      calculateobj.textweight(), calculateobj.longtext());
+                }),
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10.0),
+              width: double.infinity,
+              color: Color(bottomContainerColor),
+              height: bottomContainerhight,
+              child: Center(
+                  child: Text(
+                "CALCULATE",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),
+              )),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
